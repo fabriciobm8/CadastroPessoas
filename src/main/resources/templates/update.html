@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Atualizar Pessoa</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<h1>Atualizar Pessoa</h1>
+<form th:action="@{'/pessoas/update/' + ${pessoa.cpf}}" method="post">
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" name="nome" th:value="${pessoa.nome}" required><br><br>
+
+  <input type="submit" value="Atualizar">
+</form>
+<a href="/">Voltar ao Início</a>
+</body>
+</html>

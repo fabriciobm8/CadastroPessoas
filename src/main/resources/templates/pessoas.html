@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Pessoas</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<h1>Lista de Pessoas</h1>
+<table>
+  <tr>
+    <th>CPF</th>
+    <th>Nome</th>
+    <th>Ações</th>
+  </tr>
+  <tr th:each="pessoa : ${pessoas}">
+    <td th:text="${pessoa.cpf}"></td>
+    <td th:text="${pessoa.nome}"></td>
+    <td>
+      <a th:href="@{'/pessoas/update/' + ${pessoa.cpf}}">Editar</a> |
+      <a th:href="@{'/pessoas/delete/' + ${pessoa.cpf}}">Excluir</a>
+    </td>
+  </tr>
+</table>
+<a href="/">Voltar ao Início</a>
+</body>
+</html>
