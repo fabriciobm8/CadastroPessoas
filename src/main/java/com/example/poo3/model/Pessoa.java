@@ -8,14 +8,14 @@ import jakarta.persistence.Table;
 @Table(name = "PessoasPOO3") // Mapeia para a tabela 'PessoasPOO3'
 public class Pessoa { // Renomeado de Model para Pessoa
   @Id
-  private int cpf;
+  private String cpf;
   private String nome;
 
   // Construtor padrão
   public Pessoa() {
   }
 
-  public Pessoa(String nome, int cpf) {
+  public Pessoa(String nome, String cpf) {
     this.nome = nome;
     this.cpf = cpf;
   }
@@ -28,11 +28,11 @@ public class Pessoa { // Renomeado de Model para Pessoa
     this.nome = nome;
   }
 
-  public int getCpf() {
+  public String getCpf() {
     return cpf;
   }
 
-  public void setCpf(int cpf) {
+  public void setCpf(String cpf) {
     this.cpf = cpf;
   }
 }

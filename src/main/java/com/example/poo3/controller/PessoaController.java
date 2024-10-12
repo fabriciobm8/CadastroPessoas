@@ -35,14 +35,14 @@ public class PessoaController {
   }
 
   @PostMapping("/pessoas")
-  public String insertData(@RequestParam String nome, @RequestParam int cpf) {
+  public String insertData(@RequestParam String nome, @RequestParam String cpf) {
     Pessoa pessoa = new Pessoa(nome, cpf);
     pessoaRepository.save(pessoa);
     return "redirect:/pessoas"; // Redireciona para a lista após adicionar
   }
 
   @GetMapping("/pessoas/update/{cpf}")
-  public String showUpdatePage(@PathVariable int cpf, Model model) {
+  public String showUpdatePage(@PathVariable String cpf, Model model) {
     Optional<Pessoa> pessoaOpt = pessoaRepository.findById(cpf);
     if (pessoaOpt.isPresent()) {
       model.addAttribute("pessoa", pessoaOpt.get());
@@ -52,7 +52,7 @@ public class PessoaController {
   }
 
   @PostMapping("/pessoas/update/{cpf}")
-  public String updateData(@PathVariable int cpf, @RequestParam String nome) {
+  public String updateData(@PathVariable String cpf, @RequestParam String nome) {
     Optional<Pessoa> pessoaOpt = pessoaRepository.findById(cpf);
     if (pessoaOpt.isPresent()) {
       Pessoa pessoa = pessoaOpt.get();
@@ -63,7 +63,7 @@ public class PessoaController {
   }
 
   @GetMapping("/pessoas/delete/{cpf}")
-  public String deleteData(@PathVariable int cpf) {
+  public String deleteData(@PathVariable String cpf) {
     pessoaRepository.deleteById(cpf);
     return "redirect:/pessoas"; // Redireciona para a lista após deletar
   }
