@@ -25,6 +25,7 @@ public class PessoaController {
   @GetMapping("/pessoas")
   public String showData(Model model) {
     model.addAttribute("pessoas", pessoaRepository.findAll());
+    model.addAttribute("contador", pessoaRepository.count()); // Adiciona o contador ao modelo
     return "pessoas"; // Atualiza para retornar a página 'pessoas.html'
   }
 
