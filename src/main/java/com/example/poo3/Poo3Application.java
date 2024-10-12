@@ -11,4 +11,4 @@ public class Poo3Application {
 	}
 }
 
-// Para acessar o site: http://localhost:8080/
+// Para acessar o site: http://localhost:8080/index

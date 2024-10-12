@@ -6,22 +6,24 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<h1>Lista de Pessoas</h1>
-<table>
-  <tr>
-    <th>CPF</th>
-    <th>Nome</th>
-    <th>Ações</th>
-  </tr>
-  <tr th:each="pessoa : ${pessoas}">
-    <td th:text="${pessoa.cpf}"></td>
-    <td th:text="${pessoa.nome}"></td>
-    <td>
-      <a th:href="@{'/pessoas/update/' + ${pessoa.cpf}}">Editar</a> |
-      <a th:href="@{'/pessoas/delete/' + ${pessoa.cpf}}">Excluir</a>
-    </td>
-  </tr>
-</table>
-<a href="/">Voltar ao Início</a>
+<div class="container">
+  <h1>Lista de Pessoas</h1>
+  <table>
+    <tr>
+      <th>CPF</th>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+    <tr th:each="pessoa : ${pessoas}">
+      <td th:text="${pessoa.cpf}"></td>
+      <td th:text="${pessoa.nome}"></td>
+      <td>
+        <a th:href="@{'/pessoas/update/' + ${pessoa.cpf}}">Editar</a> |
+        <a th:href="@{'/pessoas/delete/' + ${pessoa.cpf}}">Excluir</a>
+      </td>
+    </tr>
+  </table>
+  <a href="/" class="back-link">Voltar ao Início</a>
+</div>
 </body>
 </html>

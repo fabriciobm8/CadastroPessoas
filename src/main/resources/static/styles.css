@@ -1,15 +1,57 @@
+/* CSS básico */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    text-align: center;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px; /* Aumentado de 400px para 600px (50% maior) */
 }
 
 h1 {
     color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Estilização da tabela */
 table {
-    width: 100%;
+    width: 100%; /* A tabela ocupa 100% da largura da container */
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
 th, td {
@@ -22,6 +64,14 @@ th {
     text-align: left;
 }
 
+/* Limita o tamanho da coluna 'Nome' */
+td:nth-child(2) {
+    max-width: 300px; /* Aumentado de 200px para 300px (50% maior) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 a {
     color: blue;
     text-decoration: none;
@@ -29,4 +79,49 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+/* Formulário de Adicionar e Atualizar */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px; /* Aumentado de 400px para 600px (50% maior) */
+    margin-top: 20px;
+}
+
+label {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Link de Voltar ao Início */
+.back-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: blue;
 }
