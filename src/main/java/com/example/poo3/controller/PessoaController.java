@@ -2,6 +2,9 @@ package com.example.poo3.controller;
 
 import com.example.poo3.model.Pessoa;
 import com.example.poo3.model.PessoaRepository;
+import com.itextpdf.io.font.constants.StandardFonts;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,6 +14,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 
 @Controller
 public class PessoaController {
@@ -77,5 +88,43 @@ public class PessoaController {
   public String deleteData(@PathVariable String cpf) {
     pessoaRepository.deleteById(cpf);
     return "redirect:/pessoas"; // Redireciona para a lista após deletar
+  }
+
+  @GetMapping("/pessoas/pdf")
+  public void gerarRelatorioPdf(HttpServletResponse response) throws IOException {
+    // Configurar a resposta para PDF
+    response.setContentType("application/pdf");
+    response.setHeader("Content-Disposition", "attachment; filename=\"pessoas.pdf\"");
+    // Criar o documento PDF
+    PdfWriter pdfWriter = new PdfWriter(response.getOutputStream());
+    PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+    Document document = new Document(pdfDocument);
+    // Criar fonte Helvetica
+    PdfFont helveticaFont = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+    // Obter a lista de pessoas do repositório
+    List<Pessoa> pessoas = pessoaRepository.findAll();
+    // Ordenar a lista pelo nome
+    Collections.sort(pessoas, Comparator.comparing(Pessoa::getNome));
+    // Adicionar título com fonte Helvetica
+    document.add(new Paragraph("Lista de Pessoas")
+        .setFont(helveticaFont) // Usando Helvetica
+        .setFontSize(18));
+    // Adicionar a quantidade de registros
+    document.add(new Paragraph("Total de Registros: " + pessoas.size())
+        .setFont(helveticaFont) // Usando Helvetica
+        .setFontSize(14));
+    // Criar uma tabela
+    Table table = new Table(2); // 2 colunas: CPF e Nome
+    table.addHeaderCell("CPF");
+    table.addHeaderCell("Nome");
+    // Adicionar dados à tabela
+    for (Pessoa pessoa : pessoas) {
+      table.addCell(pessoa.getCpf());
+      table.addCell(pessoa.getNome());
+    }
+    // Adicionar a tabela ao documento
+    document.add(table);
+    // Fechar o documento
+    document.close();
   }
 }

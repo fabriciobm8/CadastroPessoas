@@ -8,6 +8,10 @@
 <body>
 <div class="container">
   <h1>Lista de Pessoas (Total: <span th:text="${contador}"></span>)</h1> <!-- Adicionado contador -->
+
+  <!-- Link para gerar o relatório PDF -->
+  <a href="/pessoas/pdf">Gerar Relatório PDF</a>
+
   <table>
     <tr>
       <th>CPF</th>
