@@ -23,6 +23,11 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+
 @Controller
 public class PessoaController {
 
@@ -127,4 +132,37 @@ public class PessoaController {
     // Fechar o documento
     document.close();
   }
+
+  @GetMapping("/pessoas/excel")
+  public void gerarRelatorioExcel(HttpServletResponse response) throws IOException {
+    // Configurar a resposta para Excel
+    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    response.setHeader("Content-Disposition", "attachment; filename=\"pessoas.xlsx\"");
+    // Criar um novo workbook e uma planilha
+    Workbook workbook = new XSSFWorkbook();
+    Sheet sheet = workbook.createSheet("Pessoas");
+    // Criar cabeçalho
+    Row headerRow = sheet.createRow(0);
+    headerRow.createCell(0).setCellValue("CPF");
+    headerRow.createCell(1).setCellValue("Nome");
+    // Obter a lista de pessoas do repositório
+    List<Pessoa> pessoas = pessoaRepository.findAll();
+    // Ordenar a lista pelo nome
+    Collections.sort(pessoas, Comparator.comparing(Pessoa::getNome));
+    // Adicionar dados à planilha
+    int rowNum = 1; // Começa na segunda linha
+    for (Pessoa pessoa : pessoas) {
+      Row row = sheet.createRow(rowNum++);
+      row.createCell(0).setCellValue(pessoa.getCpf());
+      row.createCell(1).setCellValue(pessoa.getNome());
+    }
+    // Ajustar a largura das colunas
+    for (int i = 0; i < 2; i++) { // 2 colunas: CPF e Nome
+      sheet.autoSizeColumn(i);
+    }
+    // Escrever o arquivo Excel na resposta
+    workbook.write(response.getOutputStream());
+    workbook.close();
+  }
+
 }

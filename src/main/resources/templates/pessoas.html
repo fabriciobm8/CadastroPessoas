@@ -4,13 +4,19 @@
   <meta charset="UTF-8">
   <title>Lista de Pessoas</title>
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    .link-spacing {
+      margin-right: 40px; /* ajuste a margem conforme necessário */
+    }
+  </style>
 </head>
 <body>
 <div class="container">
   <h1>Lista de Pessoas (Total: <span th:text="${contador}"></span>)</h1> <!-- Adicionado contador -->
 
-  <!-- Link para gerar o relatório PDF -->
-  <a href="/pessoas/pdf">Gerar Relatório PDF</a>
+  <!-- Link para gerar o relatório PDF e Excel-->
+  <a class="link-spacing" href="/pessoas/pdf">Gerar Relatório PDF</a>
+  <a href="/pessoas/excel">Gerar Relatório Excel</a>
 
   <table>
     <tr>
