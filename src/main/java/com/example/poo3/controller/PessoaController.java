@@ -2,6 +2,9 @@ package com.example.poo3.controller;
 
 import com.example.poo3.model.Pessoa;
 import com.example.poo3.model.PessoaRepository;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +27,18 @@ public class PessoaController {
   // Rota para a página de pessoas
   @GetMapping("/pessoas")
   public String showData(Model model) {
-    model.addAttribute("pessoas", pessoaRepository.findAll());
-    model.addAttribute("contador", pessoaRepository.count()); // Adiciona o contador ao modelo
+    List<Pessoa> pessoas = pessoaRepository.findAll();
+
+    // Ordenar a lista de pessoas pelo nome
+    Collections.sort(pessoas, Comparator.comparing(Pessoa::getNome));
+
+    // Usar a lista ordenada ao adicionar ao modelo
+    model.addAttribute("pessoas", pessoas); // Usa a lista ordenada
+    model.addAttribute("contador", pessoas.size()); // Adiciona o contador com a lista ordenada
+
     return "pessoas"; // Atualiza para retornar a página 'pessoas.html'
   }
+
 
   @GetMapping("/pessoas/add")
   public String showAddPage() {
